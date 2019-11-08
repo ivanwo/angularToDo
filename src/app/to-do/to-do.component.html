@@ -1,0 +1,30 @@
+<section>
+  <h3>TODO List</h3>
+  <p>A place to store your todos</p>
+  <form>
+    <input type="text" placeholder="Filter your to-dos" />
+  </form>
+  <article class="todo" *ngFor="let todo of list; let i = index">
+    <div class="containment">
+      <p>{{ i + 1 }}.</p>
+      <a
+        [hidden]="todo.completed"
+        href="#"
+        (click)="todo.completed = true"
+        class="completeButton"
+        >complete</a
+      >
+      <p [class.completed]="todo.completed">{{ todo.task }}</p>
+    </div>
+    <a href="#" class="ex" (click)="list.splice(i, 1)">X</a>
+  </article>
+  <input
+    type="text"
+    [(ngModel)]="tempTask"
+    placeholder="Add your to-do"
+    name="add"
+    class="text"
+  />
+  <input type="submit" (click)="adder(tempTask)" name="submit" value="Add" class="submitIn" />
+</section>
+<!-- <p>{{ todoInput }}</p> -->
