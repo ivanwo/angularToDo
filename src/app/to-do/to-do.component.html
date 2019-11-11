@@ -1,10 +1,18 @@
 <section>
   <h3>TODO List</h3>
   <p>A place to store your todos</p>
-  <form>
-    <input type="text" placeholder="Filter your to-dos" />
+  <form id="sortForm">
+    <input
+      type="text"
+      [(ngModel)]="sortInput"
+      name="sorter"
+      (keyup)="sorter()"
+      placeholder="Filter your to-dos"
+    />
+    <a href="#" (click)="clearSort()">clear</a>
   </form>
-  <article class="todo" *ngFor="let todo of list; let i = index">
+  <!-- {{ sortInput }} -->
+  <article class="todo" *ngFor="let todo of sortedList; let i = index">
     <div class="containment">
       <p>{{ i + 1 }}.</p>
       <a
@@ -12,19 +20,26 @@
         href="#"
         (click)="todo.completed = true"
         class="completeButton"
-        >complete</a
       >
+        complete
+      </a>
       <p [class.completed]="todo.completed">{{ todo.task }}</p>
     </div>
-    <a href="#" class="ex" (click)="list.splice(i, 1)">X</a>
+    <div class="options">
+      <a href="#" (click)="editor(todo.task)">edit</a>
+      <a href="#" class="ex" (click)="delete(todo.task)">X</a>
+    </div>
   </article>
-  <input
-    type="text"
-    [(ngModel)]="tempTask"
-    placeholder="Add your to-do"
-    name="add"
-    class="text"
-  />
-  <input type="submit" (click)="adder(tempTask)" name="submit" value="Add" class="submitIn" />
+  <form (ngSubmit)="adder(tempTask)">
+    <input
+      type="text"
+      [(ngModel)]="tempTask"
+      name="adder"
+      placeholder="Add your to-do"
+      name="add"
+      class="text"
+    />
+    <input type="submit" name="submit" value="Add" class="submitIn" />
+  </form>
 </section>
 <!-- <p>{{ todoInput }}</p> -->
